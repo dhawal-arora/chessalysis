@@ -1,4 +1,3 @@
-
 import matplotlib
 matplotlib.use("agg")
 import matplotlib.pyplot as plt
@@ -7,14 +6,13 @@ import threading
 from flask import Flask, render_template, request, Response
 from pytchat import core as pycore
 from pytchat.util import extract_video_id
-
+from movefilter import pawn,piece
 app = Flask(__name__)
 
 def update_chart(moves, ax):
-    filtered_moves = [move for move in moves if len(move) < 20]
+    filtered_moves = [move for move in moves]
     uniquemoves = list(set(filtered_moves))
     listofoccurrences = [filtered_moves.count(move) for move in uniquemoves]
-
     ax.clear()
     ax.bar(uniquemoves, listofoccurrences)
     ax.set_xlabel('Messages')
@@ -33,7 +31,11 @@ def chat_listener(videoid, moves, running):
 
     while running[0]:
         for c in chat.get().sync_items():
-            moves.append(c.message)
+            print (c.message)
+            if c.message[0] in ["a","b","c","d","e","f","g","h"] and 1<len(c.message)<6:
+                pawn(c.message,moves)
+            elif c.message[0] in ["R","N","B","Q","K"] and 2<len(c.message)<7:
+                piece(c.message,moves) 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
