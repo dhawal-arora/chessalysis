@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Live Stream Chat Messages</title>
-</head>
-<body>
-    <h1>YouTube Live Stream Chat</h1>
-    <form action="/" method="post">
-        <label for="video_link">Enter the YouTube live stream link:</label>
-        <input type="text" id="video_link" name="video_link" required>
-        <input type="submit" value="Start">
-    </form>
-    <!--<div>
-        <img src="{{ url_for('index') }}" width="600" height="400" />
+  <head>
+      <meta charset="utf-8">
+      <title>Live Stream Chat Messages</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+  </head>
+  <body>
+    <div class="hero">
+      <video autoplay loop muted plays-inline class="backvideo">
+          <source src="{{ url_for('static', filename='background.mp4')}}" type="video/mp4">
+      </video>
+      <nav>
+          <img src="401-logo.png" class="logo">
+          <ul>
+              <li><a href="#">HOME</a></li>
+              <li><a href="#">About Me</a></li>
+              <li><a href="#">Experience</a></li>
+              <li><a href="#">Contact</a></li>
+          </ul>
+      </nav>
     </div>
-    -->
-</body>
+    <script>
+      let video = document.querySelector('video');
+      video.defaultPlaybackRate = 0.7
+      video.load();
+    </script>
+    <div class="box">
+      <h1>YouTube Live Stream Chat</h1>
+      <form action="/" method="post">
+          <input type="text" id="video_link" name="video_link" placeholder="Enter Live Stream Link" required>
+          <input type="submit" value="Start">
+      </form>
+    </div>
+    <div>
+      <img src="{{ url_for('index') }}" width="600" height="400" />
+    </div>
+
+  </body>
 </html>
